@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './table-filters.css';
 import { Search, Filter, X } from 'lucide-react';
 
 const TableFilters = ({

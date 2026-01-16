@@ -248,20 +248,40 @@ export const leadService = {
 
   // Create lead
   createLead: async (leadData) => {
-    const response = await fetch(`${API_BASE_URL}/leads`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify(leadData)
-    });
+    const url = `${API_BASE_URL}/students`;
     
-    if (!response.ok) {
-      const text = await response.text().catch(() => '');
-      const e = new Error(`Failed to create lead: ${response.status}`);
-      e.preview = text.slice(0, 500);
-      throw e;
+    console.log('Creating lead:', leadData);
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify(leadData)
+      });
+
+      if (!response.ok) {
+        let errorData;
+        try {
+          errorData = await response.json();
+        } catch {
+          errorData = await response.text();
+        }
+        
+        const err = new Error(`Failed to create lead: ${response.status} ${response.statusText}`);
+        err.status = response.status;
+        err.data = errorData;
+        console.error('API Error:', err);
+        throw err;
+      }
+
+      const data = await parseJsonOrText(response);
+      console.log('Lead created successfully:', data);
+      return data;
+
+    } catch (err) {
+      console.error(`Error creating lead:`, err);
+      throw err;
     }
-    
-    return parseJsonOrText(response);
   },
 
   // Update lead

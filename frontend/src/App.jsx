@@ -44,8 +44,8 @@ const queryClient = new QueryClient();
 // Lazy load pages for better performance
 const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
-const LeadsPage = lazy(() => import('./pages/LeadsPage'));
-const StudentsPage = lazy(() => import('./pages/StudentsPage'));
+const LeadsPage = lazy(() => import('./pages/studentPage'));
+const StudentsPage = lazy(() => import('./pages/LeadsPage'));
 const CoursesPage = lazy(() => import('./pages/CoursesPage'));
 const EnrollmentsPage = lazy(() => import('./pages/EnrollmentsPage'));
 const PaymentsPage = lazy(() => import('./pages/PaymentsPage'));
@@ -157,12 +157,12 @@ function App() {
                     <DashboardPage />
                   </RouteErrorBoundary>
                 } />
-                <Route path="leads" element={
+                <Route path="students" element={
                   <RouteErrorBoundary>
                     <LeadsPage />
                   </RouteErrorBoundary>
                 } />
-                <Route path="students" element={
+                <Route path="Leads" element={
                   <RouteErrorBoundary>
                     <StudentsPage />
                   </RouteErrorBoundary>

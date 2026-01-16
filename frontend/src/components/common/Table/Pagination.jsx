@@ -1,4 +1,5 @@
 import React from 'react';
+import './pagination.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Pagination = ({
