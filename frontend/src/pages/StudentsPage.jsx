@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit2, Trash2, Eye, Calendar, DollarSign, Award, ThumbsUp } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, Eye, Calendar, DollarSign, Award, ThumbsUp, CheckCircle2, MapPin, Activity, Users } from 'lucide-react';
 import Modal from '../components/Modal';
 import { studentAPI } from '../api';
+
 
 const StudentsPage = () => {
     const [students, setStudents] = useState([]);
@@ -154,36 +155,119 @@ const StudentsPage = () => {
                 </form>
             </Modal>
 
-            <Modal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} title="Student Profile">
+            <Modal isOpen={isViewModalOpen} onClose={() => setIsViewModalOpen(false)} title="Student Details" maxWidth="max-w-2xl">
                 {selectedStudent && (
-                    <div className="space-y-6">
-                        <div className="bg-gradient-to-br from-indigo-500 to-purple-600 p-8 rounded-[2rem] text-white shadow-xl">
-                            <h3 className="text-2xl font-black">{selectedStudent.name}</h3>
-                            <p className="opacity-80 font-medium">{selectedStudent.course} • Enrolled</p>
-                            <div className="mt-4 flex gap-4">
-                                <span className="bg-white/20 px-4 py-1 rounded-full text-xs font-bold">Fee: ₹{selectedStudent.fee}</span>
-                                <span className="bg-white/20 px-4 py-1 rounded-full text-xs font-bold">Joined: {new Date(selectedStudent.joiningDate).toLocaleDateString()}</span>
+                    <div className="flex flex-col h-full bg-[#0d1210] text-[#e2e8f0]">
+                        {/* Profile Header */}
+                        <div className="px-8 pt-8 pb-10 flex flex-col sm:flex-row items-center gap-8">
+                            <div className="relative">
+                                <div className="w-32 h-32 rounded-full border-4 border-emerald-500/20 p-1 bg-emerald-500/10 overflow-hidden">
+                                    <div className="w-full h-full rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-500 text-4xl font-black">
+                                        {selectedStudent.name.charAt(0)}
+                                    </div>
+                                </div>
+                                <div className="absolute bottom-1 right-1 bg-emerald-500 text-black p-1.5 rounded-full ring-4 ring-[#0d1210]">
+                                    <CheckCircle2 className="w-4 h-4" />
+                                </div>
+                            </div>
+
+                            <div className="flex-1 text-center sm:text-left">
+                                <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-2 justify-center sm:justify-start">
+                                    <h2 className="text-4xl font-black text-white tracking-tight">{selectedStudent.name}</h2>
+                                    <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black text-emerald-500 whitespace-nowrap uppercase tracking-widest">
+                                        ● Joined - Active
+                                    </span>
+                                </div>
+                                <p className="text-slate-400 font-bold text-lg mb-4">{selectedStudent.course} Batch 2024</p>
+                                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 text-xs font-bold text-slate-500 italic">
+                                    <span className="flex items-center gap-1.5">
+                                        <Calendar className="w-3.5 h-3.5" />
+                                        Joined {new Date(selectedStudent.joiningDate).toLocaleDateString()}
+                                    </span>
+                                    <span className="flex items-center gap-1.5">
+                                        <MapPin className="w-3.5 h-3.5" />
+                                        New York, USA
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-6 p-2">
-                            <div className="flex items-center gap-3">
-                                <ThumbsUp className="w-5 h-5 text-indigo-500" />
-                                <div>
-                                    <p className="text-[10px] text-slate-400 font-bold uppercase">Referral Bonus</p>
-                                    <p className="font-bold text-slate-900">₹{selectedStudent.referralBonus}</p>
+
+                        <div className="px-8 pb-8 space-y-10">
+                            {/* Main Info Grid */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                {/* Personal Info */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <Users className="w-4 h-4 text-emerald-500" />
+                                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Personal Information</h4>
+                                    </div>
+                                    <div className="space-y-5">
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-600 uppercase mb-1">Email Address</p>
+                                            <p className="text-sm font-bold text-slate-200">{selectedStudent.email || 'N/A'}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-600 uppercase mb-1">Phone Number</p>
+                                            <p className="text-sm font-bold text-slate-200">{selectedStudent.phone || 'N/A'}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black text-slate-600 uppercase mb-1">Course Name</p>
+                                            <p className="text-sm font-bold text-slate-200">Mastering {selectedStudent.course || 'N/A'}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Financial Details */}
+                                <div className="space-y-6">
+                                    <div className="flex items-center gap-2 mb-4">
+                                        <DollarSign className="w-4 h-4 text-emerald-500" />
+                                        <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Financial Details</h4>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <div className="flex-1 p-5 rounded-3xl bg-white/5 border border-white/5">
+                                            <p className="text-[10px] font-black text-slate-600 uppercase mb-2 text-center sm:text-left">Total Fee</p>
+                                            <p className="text-2xl font-black text-white text-center sm:text-left">₹{selectedStudent.fee?.toLocaleString()}</p>
+                                        </div>
+                                        <div className="flex-1 p-5 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 relative group">
+                                            <p className="text-[10px] font-black text-emerald-500/60 uppercase mb-2 flex items-center justify-center sm:justify-start gap-1">
+                                                Fee to Pay <Activity className="w-2 h-2" />
+                                            </p>
+                                            <p className="text-2xl font-black text-emerald-400 text-center sm:text-left">₹{(selectedStudent.fee * 0.25).toLocaleString()} <span className="text-[10px] text-emerald-500/50">(Pending)</span></p>
+                                        </div>
+                                    </div>
+
+                                    {/* Referral Info */}
+                                    <div className="pt-4 mt-6 border-t border-white/5">
+                                        <p className="text-[10px] font-black text-slate-600 uppercase mb-4 tracking-widest">Referral Info</p>
+                                        <div className="p-4 rounded-2xl bg-white/2 border border-white/5 flex items-center justify-between">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-400 overflow-hidden">
+                                                    {selectedStudent.referredBy ? selectedStudent.referredBy.charAt(0) : 'D'}
+                                                </div>
+                                                <div>
+                                                    <p className="text-[10px] text-slate-500 font-bold uppercase italic leading-none mb-1">Referred By</p>
+                                                    <p className="text-sm font-bold text-white">{selectedStudent.referredBy || 'Direct'}</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <p className="text-[10px] text-slate-500 font-bold uppercase mb-1">Bonus</p>
+                                                <p className="text-sm font-black text-emerald-500">+₹{selectedStudent.referralBonus || 0}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3">
-                                <Calendar className="w-5 h-5 text-indigo-500" />
-                                <div>
-                                    <p className="text-[10px] text-slate-400 font-bold uppercase">Referred By</p>
-                                    <p className="font-bold text-slate-900">{selectedStudent.referredBy || 'Direct'}</p>
-                                </div>
-                            </div>
+                        </div>
+
+                        {/* Footer */}
+                        <div className="px-8 py-6 bg-black/20 border-t border-white/5 flex justify-end items-center gap-4 mt-auto">
+                            <button className="text-xs font-bold text-slate-400 hover:text-white transition-colors px-6 py-2 rounded-xl bg-white/5 border border-white/10">Report Issue</button>
+                            <button onClick={() => setIsViewModalOpen(false)} className="px-8 py-3 bg-emerald-500 text-black rounded-2xl font-black text-sm hover:bg-emerald-400 transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)]">Close</button>
                         </div>
                     </div>
                 )}
             </Modal>
+
         </div>
     );
 };

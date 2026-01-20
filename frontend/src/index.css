@@ -6,6 +6,7 @@
 
 :root {
   --bg-main: #0a0f0d;
+  --bg-sidebar: #0d1210;
   --bg-surface: #121816;
   --bg-card: #18201d;
   --primary: #22c55e;
@@ -29,7 +30,7 @@ body {
 
 /* Component Classes */
 .btn-primary {
-  @apply px-6 py-3 bg-emerald-500 text-black rounded-2xl font-bold transition-all duration-300 border-none cursor-pointer relative overflow-hidden;
+  @apply px-6 py-3 bg-emerald-500 text-black rounded-2xl font-bold transition-all duration-300 border-none cursor-pointer relative overflow-hidden flex items-center justify-center gap-2;
   box-shadow: 0 4px 20px var(--primary-glow);
 }
 
@@ -43,11 +44,7 @@ body {
 }
 
 .btn-secondary {
-  @apply px-6 py-3 bg-white/5 border border-white/10 text-white rounded-2xl font-semibold transition-all duration-300 cursor-pointer backdrop-blur-md;
-}
-
-.btn-secondary:hover {
-  @apply bg-white/10 border-white/20 -translate-y-0.5;
+  @apply px-4 py-2 bg-white/5 border border-white/10 text-white rounded-xl font-semibold transition-all duration-300 cursor-pointer backdrop-blur-md;
 }
 
 .input-field {
@@ -59,23 +56,15 @@ body {
   @apply border-emerald-500/50 ring-4 ring-emerald-500/10;
 }
 
-/* Glassmorphism */
-.glass {
-  background: rgba(24, 32, 29, 0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
 .glass-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .glass-card:hover {
-  @apply -translate-y-2 border-emerald-500/20;
+  @apply border-emerald-500/20;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -85,7 +74,8 @@ body {
 }
 
 .sidebar-item.active {
-  @apply bg-emerald-500/10 text-emerald-500 border border-emerald-500/20;
+  @apply bg-emerald-500 text-black font-bold;
+  box-shadow: 0 10px 20px rgba(34, 197, 94, 0.2);
 }
 
 .sidebar-item:hover:not(.active) {
@@ -96,7 +86,7 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
 
   to {
@@ -106,12 +96,12 @@ body {
 }
 
 .fade-in {
-  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 @keyframes scaleIn {
   from {
-    transform: scale(0.9);
+    transform: scale(0.95);
     opacity: 0;
   }
 
@@ -122,23 +112,22 @@ body {
 }
 
 .scale-in {
-  animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-main);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #334155;
-  border-radius: 9999px;
-  border: 2px solid var(--bg-main);
+  background-color: #2a3331;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -147,15 +136,19 @@ body {
 
 /* Table Stylings */
 .custom-table {
-  @apply w-full border-separate border-spacing-y-3;
+  @apply w-full border-separate border-spacing-y-2;
 }
 
 .custom-table th {
-  @apply text-slate-500 font-bold text-xs uppercase tracking-widest px-6 py-4 text-left;
+  @apply text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em] px-6 py-4 text-left;
 }
 
 .custom-table tr:not(.header-row) {
-  @apply bg-white/5 transition-all duration-300;
+  @apply bg-white/[0.02] transition-all duration-300;
+}
+
+.custom-table tr:not(.header-row) td {
+  @apply px-6 py-4;
 }
 
 .custom-table tr:not(.header-row) td:first-child {
@@ -167,16 +160,23 @@ body {
 }
 
 .custom-table tr:not(.header-row):hover {
-  @apply bg-white/10 -translate-y-0.5;
+  @apply bg-white/[0.05];
 }
 
-/* Charts Overrides */
-.recharts-cartesian-grid-horizontal line,
-.recharts-cartesian-grid-vertical line {
-  stroke: rgba(255, 255, 255, 0.05);
+/* Chart Tooltip Overrides */
+.recharts-default-tooltip {
+  @apply !bg-[#1a2322] !border-none !rounded-xl !shadow-2xl !p-4 !backdrop-blur-md;
 }
 
-.recharts-text {
-  fill: #64748b !important;
-  font-weight: 500;
+.recharts-tooltip-label {
+  @apply !text-white !font-bold !mb-2;
+}
+
+.recharts-tooltip-item {
+  @apply !text-emerald-500 !font-medium;
+}
+
+/* Search Bar Hook */
+.search-bar {
+  @apply bg-[#151c1a] border border-white/5 rounded-full px-5 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500/50 transition-all w-full;
 }

@@ -1,14 +1,15 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { Home, Users, Share2, LogOut } from 'lucide-react';
+import { Home, Users, Share2, LogOut, UserPlus } from 'lucide-react';
 
-const Sidebar = ({ onClose }) => {
+const Sidebar = ({ isOpen, onClose }) => {
     const navItems = [
-        { name: 'Dashboard', icon: Home, path: '/dashboard' },
-        { name: 'Leads', icon: Users, path: '/leads' },
-        { name: 'Admitted Students', icon: Users, path: '/students' },
+        { name: 'Home', icon: Home, path: '/dashboard' },
+        { name: 'Student Details', icon: Users, path: '/students' },
+        { name: 'Leads', icon: UserPlus, path: '/leads' },
         { name: 'Share Platform', icon: Share2, path: '/share' },
     ];
+
 
     const navigate = useNavigate();
 
@@ -19,42 +20,57 @@ const Sidebar = ({ onClose }) => {
     };
 
     return (
-        <div className="h-full w-72 bg-white/80 backdrop-blur-xl border-r border-slate-100 flex flex-col transition-all duration-300">
-            <div className="flex items-center px-8 h-24">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mr-3 shadow-lg shadow-indigo-200">
-                    <div className="w-5 h-5 bg-white rounded-md transform rotate-45 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-indigo-600 rounded-sm"></div>
-                    </div>
+        <div className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#0d1210] border-r border-white/5 flex flex-col transition-transform duration-300 transform lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+            {/* Profile Section */}
+            <div className="flex items-center px-8 py-10">
+                <div className="relative">
+                    <img
+                        src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                        alt="Admin"
+                        className="w-12 h-12 rounded-xl bg-slate-800"
+                    />
+                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-4 border-[#0d1210] rounded-full"></div>
                 </div>
-                <h1 className="text-2xl font-black text-slate-900 tracking-tighter">Edu<span className="text-indigo-600">Track</span></h1>
+                <div className="ml-4">
+                    <h3 className="text-white font-bold text-sm leading-tight">Admin</h3>
+                    <p className="text-slate-500 text-xs">Dashboard</p>
+                </div>
             </div>
 
-            <nav className="flex-1 px-4 py-8 space-y-2">
+            <nav className="flex-1 px-4 space-y-1">
                 {navItems.map((item) => (
                     <NavLink
                         key={item.path}
                         to={item.path}
                         onClick={onClose}
                         className={({ isActive }) =>
-                            `flex items-center px-6 py-4 rounded-2xl transition-all duration-300 group ${isActive
-                                ? 'bg-indigo-600 text-white shadow-xl shadow-indigo-100 scale-[1.02]'
-                                : 'text-slate-500 hover:bg-slate-50 hover:text-indigo-600'
-                            }`
+                            `sidebar-item ${isActive ? 'active' : ''}`
                         }
                     >
-                        <item.icon className="w-5 h-5 mr-4 transition-transform group-hover:scale-110" />
-                        <span className="font-bold tracking-tight">{item.name}</span>
+                        <item.icon className="w-5 h-5" />
+                        <span className="text-sm font-semibold">{item.name}</span>
                     </NavLink>
                 ))}
             </nav>
 
-            <div className="p-6 border-t border-slate-50">
+            <div className="p-6 space-y-4">
+                {/* System Status Card */}
+                <div className="bg-white/5 rounded-2xl p-4 border border-white/5">
+                    <div className="flex items-center justify-between mb-2">
+                        <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">System Status</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-xs text-slate-300 font-medium">All systems operational</span>
+                    </div>
+                </div>
+
                 <button
                     onClick={handleLogout}
-                    className="flex items-center w-full px-6 py-4 text-slate-400 font-bold rounded-2xl hover:bg-rose-50 hover:text-rose-500 transition-all duration-300 group"
+                    className="flex items-center w-full px-6 py-4 text-slate-400 font-bold rounded-2xl hover:bg-white/5 hover:text-white transition-all duration-300 group"
                 >
                     <LogOut className="w-5 h-5 mr-4 transition-transform group-hover:-translate-x-1" />
-                    <span>Logout</span>
+                    <span className="text-sm">Log Out</span>
                 </button>
             </div>
         </div>
@@ -62,3 +78,4 @@ const Sidebar = ({ onClose }) => {
 };
 
 export default Sidebar;
+
