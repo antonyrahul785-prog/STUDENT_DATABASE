@@ -385,7 +385,7 @@ const LeadsPage = () => {
 
 
             {/* Modals */}
-            <Modal isOpen={isAddModalOpen || isEditModalOpen} onClose={() => { setIsAddModalOpen(false); setIsEditModalOpen(false); }} title={isEditModalOpen ? "Edit Lead" : "Add New Lead"}>
+            <Modal isOpen={isAddModalOpen || isEditModalOpen} onClose={() => { setIsAddModalOpen(false); setIsEditModalOpen(false); }} title={isEditModalOpen ? "Edit Lead" : "Add New Lead"} position="top">
                 <form onSubmit={handleSave} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">

@@ -482,7 +482,7 @@ const StudentsPage = () => {
             </Modal>
 
             {/* Direct Add Modal */}
-            <Modal isOpen={isDirectAddModalOpen} onClose={() => setIsDirectAddModalOpen(false)} title="Add New Student">
+            <Modal isOpen={isDirectAddModalOpen} onClose={() => setIsDirectAddModalOpen(false)} title="Add New Student" position="top">
                 <form onSubmit={handleDirectAddSubmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
@@ -536,7 +536,7 @@ const StudentsPage = () => {
             </Modal>
 
             {/* Admit Modal */}
-            <Modal isOpen={isAdmitModalOpen} onClose={() => setIsAdmitModalOpen(false)} title={`Admit ${selectedLeadForAdmit?.name || 'Student'}`}>
+            <Modal isOpen={isAdmitModalOpen} onClose={() => setIsAdmitModalOpen(false)} title={`Admit ${selectedLeadForAdmit?.name || 'Student'}`} position="top">
                 {selectedLeadForAdmit && (
                     <form onSubmit={handleAdmitSubmit} className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">

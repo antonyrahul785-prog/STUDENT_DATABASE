@@ -420,7 +420,7 @@ const DashboardHome = () => {
             </div>
 
             {/* Modals */}
-            <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Quick Admission / Lead">
+            <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} title="Quick Admission / Lead" position="top">
                 <form onSubmit={handleQuickAdmit} className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1">
