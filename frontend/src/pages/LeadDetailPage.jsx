@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
     ArrowLeft, Calendar, MapPin, Mail, Phone, GraduationCap,
-    Banknote, Sparkles, Activity, DollarSign, Users, Check, Edit2
+    Banknote, Sparkles, Activity, IndianRupee, Users, Check, Edit2
 } from 'lucide-react';
 import { studentAPI, courseAPI } from '../api';
 import Modal from '../components/Modal';
@@ -234,7 +234,7 @@ const LeadDetailPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div onClick={handleAdmit} className="glass-card p-6 flex items-center gap-4 hover:bg-white/[0.04] transition-colors cursor-pointer group">
                             <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all">
-                                <DollarSign className="w-6 h-6" />
+                                <IndianRupee className="w-6 h-6" />
                             </div>
                             <div>
                                 <h5 className="text-white font-black text-sm uppercase">Convert to Student</h5>
@@ -394,7 +394,7 @@ const LeadDetailPage = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Agreed Total Fee</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Agreed Total Fee (₹)</label>
                                 <input
                                     type="number"
                                     className="input-field"
@@ -404,7 +404,7 @@ const LeadDetailPage = () => {
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Upfront Payment</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Upfront Payment (₹)</label>
                                 <input
                                     type="number"
                                     className="input-field"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Plus, Edit2, Trash2, Eye, Calendar, DollarSign, Award, Users, Download, Filter, ChevronDown, Phone, Mail, ChevronLeft, ChevronRight, Activity, MapPin, UserPlus, CheckCircle } from 'lucide-react';
+import { Search, Plus, Edit2, Trash2, Eye, Calendar, IndianRupee, Award, Users, Download, Filter, ChevronDown, Phone, Mail, ChevronLeft, ChevronRight, Activity, MapPin, UserPlus, CheckCircle } from 'lucide-react';
 import { Link } from 'react-router-dom'; // Assuming Link is used somewhere or just keeping imports clean
 import Modal from '../components/Modal';
 import { studentAPI, courseAPI } from '../api';
@@ -35,6 +35,7 @@ const StudentsPage = () => {
     const [activeTab, setActiveTab] = useState('All Students');
     const [courseFilter, setCourseFilter] = useState('All Courses');
     const [dateFilter, setDateFilter] = useState('All Time');
+    const [sortOrder, setSortOrder] = useState('newest'); // default sort
 
     // Edit State
     const [formData, setFormData] = useState({ gender: 'Male' });
@@ -64,7 +65,7 @@ const StudentsPage = () => {
     // Reset page on filter change
     useEffect(() => {
         setCurrentPage(1);
-    }, [searchTerm, activeTab, courseFilter, dateFilter]);
+    }, [searchTerm, activeTab, courseFilter, dateFilter, sortOrder]);
 
     const fetchData = async () => {
         try {
@@ -222,7 +223,19 @@ const StudentsPage = () => {
         }
 
         return matchesSearch && matchesTab && matchesCourse && matchesDate;
-    });
+    })
+        .sort((a, b) => {
+            if (sortOrder === 'newest') {
+                return new Date(b.joiningDate) - new Date(a.joiningDate);
+            } else if (sortOrder === 'oldest') {
+                return new Date(a.joiningDate) - new Date(b.joiningDate);
+            } else if (sortOrder === 'az') {
+                return a.name.localeCompare(b.name);
+            } else if (sortOrder === 'za') {
+                return b.name.localeCompare(a.name);
+            }
+            return 0;
+        });
 
     // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -236,7 +249,12 @@ const StudentsPage = () => {
         pageNumbers.push(i);
     }
 
-    const categories = ['All Students', 'Pending Fees', 'New Joiners', 'Referral Bonus Pending'];
+    const categories = [
+        'All Students',
+        // 'Pending Fees', 
+        'New Joiners',
+        // 'Referral Bonus Pending'
+    ];
     // const uniqueCourses = ['All Courses', ...new Set(students.map(s => s.course).filter(Boolean))]; // Old way
 
     // Sort courses alphabetically for better UX
@@ -312,6 +330,20 @@ const StudentsPage = () => {
                         {dateFilter === 'This Month' ? 'This Month' : 'All Time'}
                         <Calendar className="w-4 h-4" />
                     </button>
+
+                    <div className="relative">
+                        <select
+                            value={sortOrder}
+                            onChange={(e) => setSortOrder(e.target.value)}
+                            className="appearance-none px-4 py-3 bg-[#0a0f0d] border border-white/5 rounded-2xl text-slate-300 text-sm font-bold flex items-center gap-2 hover:border-white/10 pr-10 focus:outline-none cursor-pointer"
+                        >
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="az">Name: A-Z</option>
+                            <option value="za">Name: Z-A</option>
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    </div>
                 </div>
             </div>
 
@@ -541,7 +573,7 @@ const StudentsPage = () => {
                     <form onSubmit={handleAdmitSubmit} className="space-y-4">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-1 col-span-2">
-                                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Fee Amount</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Fee Amount (₹)</label>
                                 <input
                                     type="number"
                                     className="input-field"
@@ -562,7 +594,7 @@ const StudentsPage = () => {
                                 />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Referral Bonus</label>
+                                <label className="text-xs font-bold text-slate-500 uppercase ml-1">Referral Bonus (₹)</label>
                                 <input
                                     type="number"
                                     className="input-field"
@@ -613,7 +645,7 @@ const StudentsPage = () => {
                             <input type="number" className="input-field" value={formData.fee || ''} onChange={(e) => setFormData({ ...formData, fee: e.target.value })} />
                         </div>
                         <div className="space-y-1">
-                            <label className="text-xs font-bold text-slate-500 uppercase ml-1">Referral Bonus</label>
+                            <label className="text-xs font-bold text-slate-500 uppercase ml-1">Referral Bonus (₹)</label>
                             <input type="number" className="input-field" value={formData.referralBonus || ''} onChange={(e) => setFormData({ ...formData, referralBonus: e.target.value })} />
                         </div>
                     </div>
@@ -677,7 +709,7 @@ const StudentsPage = () => {
                                 {/* Financial Details */}
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-2 mb-4">
-                                        <DollarSign className="w-4 h-4 text-emerald-500" />
+                                        <IndianRupee className="w-4 h-4 text-emerald-500" />
                                         <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Financial Details</h4>
                                     </div>
                                     <div className="flex gap-4">

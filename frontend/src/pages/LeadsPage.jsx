@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, Plus, Filter, Download, Edit2, Trash2, Eye, UserPlus, GraduationCap, Banknote, Sparkles, CheckCircle2, Wallet, Check, X, Calendar, MapPin, Activity, DollarSign, Award, Users } from 'lucide-react';
+import { Search, Plus, Filter, Download, Edit2, Trash2, Eye, UserPlus, GraduationCap, Banknote, Sparkles, CheckCircle2, Wallet, Check, X, Calendar, MapPin, Activity, IndianRupee, Award, Users } from 'lucide-react';
 import Modal from '../components/Modal';
 import { studentAPI, courseAPI } from '../api';
 
@@ -542,7 +542,7 @@ const LeadsPage = () => {
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Agreed Total Fee ($)</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Agreed Total Fee (₹)</label>
                                 <div className="relative">
                                     <input
                                         type="number"
@@ -552,11 +552,11 @@ const LeadsPage = () => {
                                         onChange={(e) => setAdmitData({ ...admitData, fee: e.target.value })}
                                         required
                                     />
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">$</span>
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">₹</span>
                                 </div>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Upfront Payment ($)</label>
+                                <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Upfront Payment (₹)</label>
                                 <div className="relative">
                                     <input
                                         type="number"
@@ -601,7 +601,7 @@ const LeadsPage = () => {
                                     </div>
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Bonus Credit ($)</label>
+                                    <label className="text-[10px] font-black text-slate-500 uppercase ml-1">Bonus Credit (₹)</label>
                                     <input
                                         type="number"
                                         className="input-field"
@@ -681,7 +681,7 @@ const LeadsPage = () => {
                             <div className="space-y-10">
                                 <div className="space-y-6">
                                     <div className="flex items-center gap-3 border-b border-white/5 pb-4">
-                                        <DollarSign className="w-5 h-5 text-emerald-500" />
+                                        <IndianRupee className="w-5 h-5 text-emerald-500" />
                                         <h4 className="text-sm font-black text-white uppercase tracking-widest">Financial Details</h4>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">

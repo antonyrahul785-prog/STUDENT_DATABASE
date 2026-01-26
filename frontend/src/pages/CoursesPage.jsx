@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Book, Edit2, DollarSign, Clock, Users, Save, X, Plus } from 'lucide-react';
+import { Search, Book, Edit2, IndianRupee, Clock, Users, Save, X, Plus } from 'lucide-react';
 import Modal from '../components/Modal';
 import { courseAPI } from '../api';
 
@@ -174,7 +174,7 @@ const CoursesPage = () => {
                                 <div>
                                     <p className="text-[10px] font-black text-slate-500 uppercase mb-1">Total Fee</p>
                                     <p className="text-emerald-500 font-bold flex items-center gap-1">
-                                        <DollarSign className="w-3 h-3" />
+                                        <IndianRupee className="w-3 h-3" />
                                         {course.fees?.total?.toLocaleString()}
                                     </p>
                                 </div>
